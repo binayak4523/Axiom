@@ -127,10 +127,6 @@ Contributions, experiments, and ideas are welcome. Suggested areas to explore:
 
 When contributing, follow idiomatic Rust and keep changes narrowly focused.
 
-📜 License
-
-Choose a license for the repository. For an educational project, the MIT License is a common choice.
-
 ---
 
 ## Axiom’s Philosophy
@@ -262,5 +258,3 @@ And that’s powerful.
 Why this project exists
 
 Axiom exists to answer the question: "What actually happens when you write code?" Instead of using an existing compiler, we implement the full pipeline to learn how languages work under the hood.
-
-Happy hacking — explore the pipeline and extend Axiom!
