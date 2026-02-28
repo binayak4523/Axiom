@@ -133,6 +133,132 @@ Choose a license for the repository. For an educational project, the MIT License
 
 ---
 
+## Axiom’s Philosophy
+
+Axiom is an experimental programming language focused on clarity, correctness, and intentional design.
+
+It is currently under active development and evolving feature by feature. Rather than rushing toward complexity, Axiom grows through carefully implemented architectural layers: lexical analysis, parsing, type checking, and interpretation.
+
+Axiom is not built to compete with production languages. It is built to understand them.
+
+### 🎯 Core Principles
+
+1. Architecture First
+
+Every feature in Axiom must pass through a complete language pipeline:
+
+Lexer → Parser → AST → Type Checker → Interpreter
+
+No shortcuts.
+No hidden execution rules.
+No bypassing the type system.
+
+If a feature cannot be cleanly modeled across these stages, it does not belong in the language.
+
+2. Semantics Before Syntax
+
+Axiom prioritizes semantic correctness over syntactic convenience.
+
+Programs must:
+
+- Be type-safe
+- Be predictable
+- Have well-defined behavior
+
+Even as a small language, Axiom enforces structure through a static type system.
+
+3. Minimalism With Intent
+
+Axiom deliberately begins small:
+
+- Integers
+- Time values
+- Expressions
+- Variable bindings
+
+Each addition is designed to expand expressive power without compromising clarity.
+
+The goal is not to add features quickly. The goal is to add features correctly.
+
+4. Explicitness Over Magic
+
+Axiom avoids hidden behaviors.
+
+State (like `now`) is explicit.
+Types are explicit.
+Evaluation order is deterministic.
+
+The language aims to be understandable by reading its interpreter.
+
+5. Educational Transparency
+
+Axiom is designed to be readable both as a language and as an implementation.
+
+The source code demonstrates:
+
+- How interpreters are structured
+- How recursive descent parsers work
+- How static type checking is implemented
+- How environments manage scope and values
+
+Axiom is as much about learning language design as it is about writing programs.
+
+### 🚧 Development Status
+
+Axiom is currently in early-stage development.
+
+Implemented:
+
+- Variable bindings
+- Arithmetic expressions
+- Static type checking
+- Interpreter with state (`now` primitive)
+
+Planned:
+
+- Scoped blocks
+- Boolean type
+- Comparison operators
+- Functions
+- REPL
+- Improved diagnostics
+- Possible bytecode backend
+
+The language is evolving incrementally, with architectural discipline guiding each feature.
+
+### 🌱 Long-Term Vision
+
+Axiom aims to grow into a small but principled language that explores:
+
+- Deterministic evaluation
+- Explicit state modeling
+- Static guarantees
+- Minimal but expressive syntax
+- Clean separation of compilation phases
+
+It may remain an educational language.
+It may evolve into something more experimental.
+
+What matters is that its growth remains intentional.
+
+### Why This Works
+
+Notice what this does:
+
+- It admits it’s under development
+- It avoids pretending to be production-ready
+- It sounds deliberate, not accidental
+
+It frames the project as a research/learning language and communicates seriousness without exaggeration.
+
+This no longer sounds like: "I made a toy language for fun."
+
+It sounds like: "I am intentionally exploring programming language design."
+
+And that’s powerful.
+
+---
+
 Why this project exists
 
 Axiom exists to answer the question: "What actually happens when you write code?" Instead of using an existing compiler, we implement the full pipeline to learn how languages work under the hood.
