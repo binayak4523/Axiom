@@ -1,0 +1,2 @@
+let t = now
+t
