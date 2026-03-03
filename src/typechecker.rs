@@ -15,13 +15,8 @@ impl TypeEnv {
         }
     }
 
-    pub fn get(&self, name: &str) -> Option<Value> {
-        for scope in self.scopes.iter().rev() {
-            if let Some(value) = scope.get(name) {
-                return Some(value.clone());
-            }
-        }
-        None
+    pub fn get(&self, name: &str) -> Option<Type> {
+        self.vars.get(name).cloned()
     }
 
     pub fn set(&mut self, name: String, ty: Type) {
@@ -84,6 +79,9 @@ impl TypeChecker {
                 }
                 Stmt::Expr(expr) => {
                     self.check_expr(expr)?;
+                }
+                Stmt::Block(block_stmts) => {
+                    self.check(block_stmts)?;
                 }
             }
         }

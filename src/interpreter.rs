@@ -18,6 +18,29 @@ impl Env {
             scopes: vec![HashMap::new()],
         }
     }
+
+    pub fn get(&self, name: &str) -> Option<Value> {
+        for scope in self.scopes.iter().rev() {
+            if let Some(value) = scope.get(name) {
+                return Some(value.clone());
+            }
+        }
+        None
+    }
+
+    pub fn insert(&mut self, name: String, value: Value) {
+        if let Some(scope) = self.scopes.last_mut() {
+            scope.insert(name, value);
+        }
+    }
+
+    pub fn enter_scope(&mut self) {
+        self.scopes.push(HashMap::new());
+    }
+
+    pub fn exit_scope(&mut self) {
+        self.scopes.pop();
+    }
 }
 
 pub struct Interpreter {
@@ -74,10 +97,33 @@ impl Interpreter {
             match stmt {
                 Stmt::Let { name, value } => {
                     let val = self.eval_expr(value);
-                    self.env.set(name.clone(), val);
+                    self.env.insert(name.clone(), val);
                 }
                 Stmt::Expr(expr) => {
                     last = Some(self.eval_expr(expr));
+                }
+                Stmt::Block(block_stmts) => {
+                    self.env.enter_scope();
+
+                    let mut block_last = None;
+                    for block_stmt in block_stmts {
+                        match block_stmt {
+                            Stmt::Let { name, value } => {
+                                let val = self.eval_expr(value);
+                                self.env.insert(name.clone(), val);
+                            }
+                            Stmt::Expr(expr) => {
+                                block_last = Some(self.eval_expr(expr));
+                            }
+                            Stmt::Block(_) => {
+                                // Handle nested blocks recursively
+                                block_last = self.execute(std::slice::from_ref(block_stmt));
+                            }
+                        }
+                    }
+
+                    self.env.exit_scope();
+                    last = block_last;
                 }
             }
         }

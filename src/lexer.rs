@@ -85,6 +85,14 @@ impl Lexer {
             Some('*') => { self.advance(); Token::Star }
             Some('/') => { self.advance(); Token::Slash }
             Some('=') => { self.advance(); Token::Equal }
+            Some('{') => {
+                self.advance();
+                Token::LBrace
+            }
+            Some('}') => {
+                self.advance();
+                Token::RBrace
+            }
             Some(c) if c.is_ascii_digit() => Token::Number(self.read_number()),
             Some(c) if c.is_alphabetic() || c == '_' => {
                 let ident = self.read_ident();
@@ -96,14 +104,6 @@ impl Lexer {
             }
             None => Token::EOF,
             Some(c) => panic!("Unexpected character: {}", c),
-        }
-        Some('{') => {
-            self.advance();
-            Token::LBrace
-        }
-        Some('}') => {
-            self.advance();
-            Token::RBrace
         }
     }
 }

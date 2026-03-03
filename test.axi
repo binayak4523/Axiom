@@ -1,2 +1,6 @@
-let t = now
-t
+let x = 5
+{
+    let x = 10
+    x
+}
+x

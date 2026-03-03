@@ -22,10 +22,5 @@ pub enum BinOp {
 pub enum Stmt {
     Let { name: String, value: Expr },
     Expr(Expr),
-}
-
-pub enum Stmt {
-    Let { name: String, value: Expr },
-    Expr(Expr),
-    Block(Vec<Stmt>),   // 👈 NEW
+    Block(Vec<Stmt>),
 }
