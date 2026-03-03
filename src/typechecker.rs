@@ -15,8 +15,13 @@ impl TypeEnv {
         }
     }
 
-    pub fn get(&self, name: &str) -> Option<Type> {
-        self.vars.get(name).cloned()
+    pub fn get(&self, name: &str) -> Option<Value> {
+        for scope in self.scopes.iter().rev() {
+            if let Some(value) = scope.get(name) {
+                return Some(value.clone());
+            }
+        }
+        None
     }
 
     pub fn set(&mut self, name: String, ty: Type) {

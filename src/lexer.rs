@@ -13,6 +13,8 @@ pub enum Token {
     Star,
     Slash,
     Equal,
+    LBrace,
+    RBrace,
 
     EOF,
 }
@@ -94,6 +96,14 @@ impl Lexer {
             }
             None => Token::EOF,
             Some(c) => panic!("Unexpected character: {}", c),
+        }
+        Some('{') => {
+            self.advance();
+            Token::LBrace
+        }
+        Some('}') => {
+            self.advance();
+            Token::RBrace
         }
     }
 }

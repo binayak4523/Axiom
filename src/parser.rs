@@ -24,10 +24,26 @@ impl Parser {
         stmts
     }
 
+    pub fn enter_scope(&mut self) {
+        self.scopes.push(HashMap::new());
+    }
+
+    pub fn exit_scope(&mut self) {
+        self.scopes.pop();
+    }
+
     fn parse_stmt(&mut self) -> Stmt {
         match self.current {
             Token::Let => self.parse_let(),
             _ => Stmt::Expr(self.parse_expr()),
+        }
+        match self.current {
+            Token::Let => self.parse_let(),
+            Token::LBrace => self.parse_block(),   // 👈 NEW
+            _ => {
+                let expr = self.parse_expr();
+                Stmt::Expr(expr)
+            }
         }
     }
 
@@ -123,5 +139,21 @@ impl Parser {
             }
             _ => panic!("Unexpected token"),
         }
+    }
+
+    fn parse_block(&mut self) -> Stmt {
+        // consume '{'
+        self.advance();
+
+        let mut stmts = Vec::new();
+
+        while self.current != Token::RBrace && self.current != Token::EOF {
+            stmts.push(self.parse_stmt());
+        }
+
+        // consume '}'
+        self.advance();
+
+        Stmt::Block(stmts)
     }
 }
